@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30711.63
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "InteractiveBrokersPythonBot", "InteractiveBrokersPythonBot.pyproj", "{4786E9EF-3047-46A2-BAE7-943AD2F0CBA0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4786E9EF-3047-46A2-BAE7-943AD2F0CBA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4786E9EF-3047-46A2-BAE7-943AD2F0CBA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1EAC8935-1C45-4D2F-A399-208530FA083B}
+	EndGlobalSection
+EndGlobal
