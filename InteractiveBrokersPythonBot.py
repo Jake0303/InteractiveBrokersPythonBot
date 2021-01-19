@@ -14,8 +14,15 @@ class IBApi(EWrapper,EClient):
     def __init__(self):
         EClient.__init__(self, self)
     # Listen for realtime bars
-    def realTimeBar(self, reqId, time, open_, high, low, close, volume, wap, count):
-        bot.on_bar_update(reqId, time, open_, high, low, close, volume, wap, count)
+    def realtimeBar(self, reqId, time, open_, high, low, close,volume, wap, count):
+        super().realtimeBar(reqId, time, open_, high, low, close, volume, wap, count)
+        try:
+            bot.on_bar_update(reqId, time, open_, high, low, close, volume, wap, count)
+        except Exception as e:
+            print(e)
+    def error(self, id, errorCode, errorMsg):
+        print(errorCode)
+        print(errorMsg)
 #Bot Logic
 class Bot:
     ib = None
@@ -40,7 +47,7 @@ class Bot:
     def run_loop(self):
         self.ib.run()
     #Pass realtime bar data back to our bot object
-    def on_bar_update(reqId, time, open_, high, low, close, volume, wap, count):
-        print(reqId)
+    def on_bar_update(self, reqId, time, open_, high, low, close, volume, wap, count):
+        print(close)
 #Start Bot
 bot = Bot()
