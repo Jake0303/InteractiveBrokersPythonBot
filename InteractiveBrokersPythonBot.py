@@ -43,6 +43,22 @@ class Bot:
         contract.currency = "USD"
         # Request Market Data
         self.ib.reqRealTimeBars(0, contract, 5, "TRADES", 1, [])
+        # TODO Submit ORDER
+        # Create Order Object
+        order = Order()
+        order.orderType = "MKT" # or LMT ETC....
+        order.action = "BUY" # or SELL ETC...
+        quantity = 1
+        order.totalQuantity = quantity
+        # Create Contract Object
+        contract = Contract()
+        contract.symbol = symbol
+        contract.secType = "STK" # or FUT ETC....
+        contract.exchange = "SMART"
+        contract.primaryExchange = "ISLAND"
+        contract.currency = "USD"
+        # Place the order
+        self.ib.placeOrder(2, contract, order)
     #Listen to socket in seperate thread
     def run_loop(self):
         self.ib.run()
