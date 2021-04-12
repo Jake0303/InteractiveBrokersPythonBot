@@ -125,6 +125,7 @@ class Bot:
         profitTargetOrder.action = "SELL"
         profitTargetOrder.totalQuantity = quantity
         profitTargetOrder.lmtPrice = round(profitTarget,2)
+        profitTargetOrder.parentId = parentOrderId
         profitTargetOrder.transmit = False
         # Stop Loss
         stopLossOrder = Order()
@@ -132,6 +133,7 @@ class Bot:
         stopLossOrder.orderType = "STP"
         stopLossOrder.action = "SELL"
         stopLossOrder.totalQuantity = quantity
+        stopLossOrder.parentId = parentOrderId
         stopLossOrder.auxPrice = round(stopLoss,2)
         stopLossOrder.transmit = True
 
@@ -182,8 +184,7 @@ class Bot:
                     #Place Bracket Order
                     for o in bracket:
                         o.ocaGroup = "OCA_"+str(orderId)
-                        o.ocaType = 2
-                        self.ib.placeOrder(o.orderId,o.contract,o)
+                        self.ib.placeOrder(o.orderId,contract,o)
                     orderId += 3
                 #Bar closed append
                 self.currentBar.close = bar.close
