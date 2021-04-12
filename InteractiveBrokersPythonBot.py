@@ -54,14 +54,14 @@ class Bar:
     high = 0
     close = 0
     volume = 0
-    date = ''
+    date = datetime.now()
     def __init__(self):
         self.open = 0
         self.low = 0
         self.high = 0
         self.close = 0
         self.volume = 0
-        self.date = ''
+        self.date = datetime.now()
 #Bot Logic
 class Bot:
     ib = None
@@ -84,7 +84,7 @@ class Bot:
         #Get symbol info
         self.symbol = input("Enter the symbol you want to trade : ")
         #Get bar size
-        self.barsize = input("Enter the barsize you want to trade in minutes : ")
+        self.barsize = int(input("Enter the barsize you want to trade in minutes : "))
         mintext = " min"
         if (int(self.barsize) > 1):
             mintext = " mins"
@@ -147,8 +147,10 @@ class Bot:
             bartime = datetime.strptime(bar.date,"%Y%m%d %H:%M:%S").astimezone(pytz.timezone("America/New_York"))
             minutes_diff = (bartime-self.initialbartime).total_seconds() / 60.0
             self.currentBar.date = bartime
+            lastBar = self.bars[len(self.bars)-1]
             #On Bar Close
             if (minutes_diff > 0 and math.floor(minutes_diff) % self.barsize == 0):
+                self.initialbartime = bartime
                 #Entry - If we have a higher high, a higher low and we cross the 50 SMA Buy
                 #1.) SMA
                 closes = []
@@ -161,7 +163,7 @@ class Bot:
                 lastLow = self.bars[len(self.bars)-1].low
                 lastHigh = self.bars[len(self.bars)-1].high
                 lastClose = self.bars[len(self.bars)-1].close
-                lastBar = self.bars[len(self.bars)-1]
+
                 # Check Criteria
                 if (bar.close > lastHigh
                     and self.currentBar.low > lastLow
@@ -185,9 +187,9 @@ class Bot:
                     orderId += 3
                 #Bar closed append
                 self.currentBar.close = bar.close
-                if (self.currentBar.date != lastBar.date):
-                    print("New bar!")
-                    self.bars.append(self.currentBar)
+                print("New bar!")
+                self.bars.append(self.currentBar)
+                self.currentBar = Bar()
                 self.currentBar.open = bar.open
         #Build  realtime bar
         if (self.currentBar.open == 0):
